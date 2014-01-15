@@ -20,7 +20,7 @@ import es.microforum.serviceapi.EmpresaService;
  * @author Clarence
  *
  */
-@Service("springJpaPersonaService")
+@Service("springJpaEmpresaService")
 @Repository
 @Transactional
 
@@ -30,7 +30,7 @@ public class EmpresaServiceImp implements EmpresaService{
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	
-	public Empresa guardar(Empresa empresa) {
+	public Empresa save(Empresa empresa) {
 		// TODO Auto-generated method stub
 		return empresaRepository.save(empresa);
 	}
@@ -38,6 +38,11 @@ public class EmpresaServiceImp implements EmpresaService{
 	public void delete(Empresa empresa) {
 		// TODO Auto-generated method stub
 		empresaRepository.delete(empresa);	
+	}
+	
+	//llamar al repositorio y devolver lo que te devuelve el repositorio
+	public Empresa findByNif(String id) {
+		return empresaRepository.findOne(id);
 	}
 
 

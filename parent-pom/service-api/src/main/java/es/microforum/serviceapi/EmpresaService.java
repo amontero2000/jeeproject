@@ -8,9 +8,12 @@ public interface EmpresaService {
 	
 	
 	// guardar empresa
-		public Empresa guardar(Empresa empresa);
+		public Empresa save(Empresa empresa);
 		
 		// eliminar empresa
-		public void eliminar(Empresa empresa);
+		public void delete(Empresa empresa);
+		
+		// buscar Empresa por -nif
+		public Empresa findByNif(String id);
 
 }

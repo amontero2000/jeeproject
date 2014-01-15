@@ -6,9 +6,12 @@ import es.microforum.model.Empleado;
 public interface EmpleadoService {
 	
 	// guardar empleado
-		public Empleado guardar(Empleado empleado);
+		public Empleado save(Empleado empleado);
 		
 		// eliminar empleado
-		public void eliminar(Empleado empleado);
+		public void delete(Empleado empleado);
+		
+		// buscar Empleado por dni
+		public Empleado findByDni(String id);
 
 }

@@ -21,7 +21,7 @@ import es.microforum.serviceapi.EmpleadoService;
  * @author Clarence
  *
  */
-@Service("springJpaPersonaService")
+@Service("springJpaEmpleadoService")
 @Repository
 @Transactional
 
@@ -31,7 +31,7 @@ public class EmpleadoServiceImp implements EmpleadoService {
 	private EmpleadoRepository empleadoRepository;
 	
 	
-	public Empleado guardar(Empleado empleado) {
+	public Empleado save(Empleado empleado) {
 		// TODO Auto-generated method stub
 		return empleadoRepository.save(empleado);
 	}
@@ -41,6 +41,9 @@ public class EmpleadoServiceImp implements EmpleadoService {
 		empleadoRepository.delete(empleado);	
 	}
 	
-	
+	//llamar al repositorio y devolver lo que te devuelve el repositorio
+	public Empleado findByDni(String id) {
+		return empleadoRepository.findOne(id);
+	}
 
 }
