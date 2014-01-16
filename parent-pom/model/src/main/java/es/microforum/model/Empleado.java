@@ -101,7 +101,7 @@ public class Empleado implements java.io.Serializable {
 		this.direccion = direccion;
 	}
 
-	@Column(name = "tipo-empleado", length = 45)
+	@Column(name = "tipoEmpleado", length = 45)
 	public String getTipoEmpleado() {
 		return this.tipoEmpleado;
 	}
@@ -119,7 +119,7 @@ public class Empleado implements java.io.Serializable {
 		this.empleadocol = empleadocol;
 	}
 
-	@Column(name = "salario-anual", precision = 22, scale = 0)
+	@Column(name = "salarioAnual", precision = 22, scale = 0)
 	public Double getSalarioAnual() {
 		return this.salarioAnual;
 	}
@@ -128,7 +128,7 @@ public class Empleado implements java.io.Serializable {
 		this.salarioAnual = salarioAnual;
 	}
 
-	@Column(name = "valor-hora", precision = 22, scale = 0)
+	@Column(name = "valorHora", precision = 22, scale = 0)
 	public Double getValorHora() {
 		return this.valorHora;
 	}
@@ -137,7 +137,7 @@ public class Empleado implements java.io.Serializable {
 		this.valorHora = valorHora;
 	}
 
-	@Column(name = "cantidad-horas", precision = 22, scale = 0)
+	@Column(name = "cantidadHoras", precision = 22, scale = 0)
 	public Double getCantidadHoras() {
 		return this.cantidadHoras;
 	}
