@@ -5,15 +5,21 @@
 	<artifactId>parent-pom</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	
+
 	<properties>
 		<spring.version>4.0.0.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<hibernatejpa.version>1.0.1.Final</hibernatejpa.version>
 		<springdatajpa.version>1.4.2.RELEASE</springdatajpa.version>
 		<com.google.guava.version>10.0.1</com.google.guava.version>
+		<hibernate.version>3.6.8.Final</hibernate.version>
+		<spring-data-jpa.version>1.4.3.RELEASE</spring-data-jpa.version>
+		<mysql.version>5.1.6</mysql.version>
+		<log4version>1.2.16</log4version>
+		<org.slf4j.version>1.6.1</org.slf4j.version>
+		<spring.framework.version>3.1.0.RELEASE</spring.framework.version>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -21,9 +27,24 @@
 			<version>${junit.version}</version>
 		</dependency>
 	</dependencies>
-	
+
 	<dependencyManagement>
+
+
 		<dependencies>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-jpa</artifactId>
+				<version>${spring-data-jpa.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-core</artifactId>
@@ -45,10 +66,67 @@
 				<version>${hibernatejpa.version}</version>
 			</dependency>
 			<dependency>
-	            <groupId>com.google.guava</groupId>
-	            <artifactId>guava</artifactId>
-	            <version>${com.google.guava.version}</version>
-        	</dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${com.google.guava.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${org.slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aspects</artifactId>
+				<version>${spring.framework.version}</version>
+			</dependency>
+			<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>    
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+			
+			<!-- <dependency> -->
+			<!-- <groupId>es.microforum</groupId> -->
+			<!-- <artifactId>model</artifactId> -->
+			<!-- <version>0.0.1-SNAPSHOT</version> -->
+			<!-- <scope>compile</scope> -->
+			<!-- </dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>es.microforum</groupId> -->
+			<!-- <artifactId>service-api</artifactId> -->
+			<!-- <version>0.0.1-SNAPSHOT</version> -->
+			<!-- <scope>compile</scope> -->
+			<!-- </dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>es.microforum</groupId> -->
+			<!-- <artifactId>service-impl</artifactId> -->
+			<!-- <version>0.0.1-SNAPSHOT</version> -->
+			<!-- <scope>compile</scope> -->
+			<!-- </dependency> -->
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -59,7 +137,7 @@
 		<module>service-frontend</module>
 		<module>web-frontend</module>
 	</modules>
-	
+
 	<build>
 		<plugins>
 			<plugin>

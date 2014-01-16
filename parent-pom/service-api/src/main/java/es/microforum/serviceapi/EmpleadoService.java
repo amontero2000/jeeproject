@@ -5,7 +5,7 @@ import es.microforum.model.Empleado;
 
 public interface EmpleadoService {
 	
-	// guardar empleado
+	   // guardar empleado
 		public Empleado save(Empleado empleado);
 		
 		// eliminar empleado
