@@ -50,7 +50,7 @@ public class EmpresaTest {
     }
 
 	@Test
-	//@Transactional
+	@Transactional
 	public void testinsertarEmpresa() {
 		System.out.println("- Insertar Empresa");
 		
