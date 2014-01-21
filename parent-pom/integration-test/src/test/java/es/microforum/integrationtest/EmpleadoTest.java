@@ -34,7 +34,7 @@ import es.microforum.serviceapi.EmpleadoService;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@TransactionConfiguration(defaultRollback=false)
+@TransactionConfiguration(defaultRollback=true)
 @ContextConfiguration(locations = "classpath:spring-data-app-context.xml")
 
 public class EmpleadoTest {
