@@ -50,17 +50,7 @@ public class EmpleadoTest {
 		System.out.println("- Insertar Empleado");
 		
 		byte[] imagen = null;
-		/*File file = new File("C:\\_jee64\\wsproject\\code.gif");
-		if (file.exists())
-		{
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-	        FileInputStream fis = new FileInputStream(file);
-	        byte[] buf = new byte[1024];
-	        for (int readNum; (readNum = fis.read(buf)) != -1;) {
-	        	bos.write(buf, 0, readNum);   
-	        }
-	        imagen = bos.toByteArray();
-		}*/
+		
 		empleado = new Empleado("1", null, "Empleado 1","direccion 1", "tipo Empleado1", "empleado col1",4000.55, 33.88, 40.55,imagen);
 		empleadoService.guardar(empleado);
 		
