@@ -5,6 +5,7 @@ package es.microforum.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -101,5 +102,29 @@ public class Empresa implements java.io.Serializable {
 	public void setEmpleados(Set<Empleado> empleados) {
 		this.empleados = empleados;
 	}
+	
+	 @Override
+     public boolean equals(Object obj) {
+             if (this == obj)
+                     return true;
+             if (obj == null)
+                     return false;
+             if (getClass() != obj.getClass())
+                     return false;
+             Empresa other = (Empresa) obj;
+             if (nif == null) {
+                     if (other.nif != null)
+                             return false;
+             } else if (!nif.equals(other.nif))
+                     return false;
+             return true;
+     }
 
+
+     @Override
+	public String toString() {		
+		return "Empresa nif: " + nif + ", version: " + version
+				+ ", nombre:" + nombre +  ", direccionFiscal: " + direccionFiscal
+				+ ", fechaInicioActividades" + fechaInicioActividades;
+	}
 }
