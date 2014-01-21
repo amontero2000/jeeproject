@@ -1,5 +1,7 @@
 package es.microforum.serviceapi;
 
+import java.util.List;
+
 import es.microforum.model.Empresa;
 
 
@@ -8,12 +10,17 @@ public interface EmpresaService {
 	
 	
 	// guardar empresa
-		public Empresa save(Empresa empresa);
+		public Empresa guardar(Empresa empresa);
 		
 		// eliminar empresa
-		public void delete(Empresa empresa);
+		public void eliminar(Empresa empresa);
 		
 		// buscar Empresa por -nif
-		public Empresa findByNif(String id);
+		public Empresa buscarPorNif(String id);
+		
+		// buscar Empresa por -nif
+		public List<Empresa> buscarEmpresas();
+		
+		public void commit();
 
 }

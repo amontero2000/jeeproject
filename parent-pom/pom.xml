@@ -17,7 +17,6 @@
 		<mysql.version>5.1.6</mysql.version>
 		<log4version>1.2.16</log4version>
 		<org.slf4j.version>1.6.1</org.slf4j.version>
-		<spring.framework.version>3.1.0.RELEASE</spring.framework.version>
 	</properties>
 
 	<dependencies>
@@ -90,23 +89,34 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aop</artifactId>
-				<version>${spring.framework.version}</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-aspects</artifactId>
-				<version>${spring.framework.version}</version>
+				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>${spring.framework.version}</version>
+			<version>${spring.version}</version>
 		</dependency>    
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>${spring.framework.version}</version>
+			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+      		<groupId>org.springframework</groupId>
+      		<artifactId>spring-beans</artifactId>
+      		<version>${spring.version}</version>
+    	</dependency>
+            
 			
 			<!-- <dependency> -->
 			<!-- <groupId>es.microforum</groupId> -->
