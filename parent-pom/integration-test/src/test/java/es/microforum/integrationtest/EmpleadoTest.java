@@ -8,23 +8,18 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
+
 import es.microforum.model.Empleado;
 import es.microforum.serviceapi.EmpleadoService;
 
@@ -55,7 +50,6 @@ public class EmpleadoTest {
 		System.out.println("- Insertar Empleado");
 		
 		byte[] imagen = null;
-		
 		/*File file = new File("C:\\_jee64\\wsproject\\code.gif");
 		if (file.exists())
 		{
@@ -67,7 +61,6 @@ public class EmpleadoTest {
 	        }
 	        imagen = bos.toByteArray();
 		}*/
-        
 		empleado = new Empleado("1", null, "Empleado 1","direccion 1", "tipo Empleado1", "empleado col1",4000.55, 33.88, 40.55,imagen);
 		empleadoService.guardar(empleado);
 		
