@@ -5,9 +5,6 @@ package es.microforum.integrationtest;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.List;
 
 import org.junit.Before;
@@ -23,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import es.microforum.model.Empleado;
 import es.microforum.serviceapi.EmpleadoService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * @author Alberto
@@ -37,39 +37,50 @@ public class EmpleadoTest {
 	private ApplicationContext ctx;
 	EmpleadoService empleadoService;
 	Empleado empleado;
+	private static Logger logger;
 
 
     @Before
     public void setUp() throws Exception {
     	empleadoService = ctx.getBean("springJpaEmpleadoService", EmpleadoService.class);
+    	logger = LoggerFactory.getLogger(EmpleadoTest.class);
     }
 
 	@Test
 	@Transactional
 	public void testinsertarEmpleado() {
-		System.out.println("- Insertar Empleado");
+		logger.info("- Insertar Empleado");
 		
 		byte[] imagen = null;
+        
 		empleado = new Empleado("1", null, "Empleado 1","direccion 1", "tipo Empleado1", "empleado col1",4000.55, 33.88, 40.55,imagen);
 		empleadoService.guardar(empleado);
 		
 		empleado = empleadoService.buscarPorDni("1");
+		
+		if(empleado==null)
+		{
+			logger.error("los datos de empleado no se han guardado en la bbdd");
+		}
+		
 		assertTrue(empleado != null);
 	}
 	
 	@Test
 	@Transactional
 	public void testModificarEmpleado() {
-		System.out.println("- Modificar Empleado sino existe insertamos uno previamente");
+		logger.info("- Modificar Empleado sino existe insertamos uno");
 		
 		empleado = empleadoService.buscarPorDni("1");
 		if (empleado == null)
 		{
 			testinsertarEmpleado();
 		}
-		
-		empleado.setNombre("nombreModificado");
-		empleadoService.guardar(empleado);
+		else
+		{
+			empleado.setNombre("nombreModificado");
+			empleadoService.guardar(empleado);
+		}
 		
 		empleado = empleadoService.buscarPorDni("1");
 		assertTrue(empleado.getNombre().equals("nombreModificado"));
@@ -78,7 +89,7 @@ public class EmpleadoTest {
 	@Test
 	@Transactional
 	public void buscarEmpleado() {
-		System.out.println("- buscar Empleado sino existe insertamos uno previamente");
+		logger.info("- buscar Empleado sino existe insertamos uno previamente");
 		empleado = empleadoService.buscarPorDni("1");
 		if (empleado == null)
 		{
@@ -92,7 +103,7 @@ public class EmpleadoTest {
 	@Test
 	@Transactional
 	public void eliminarEmpleado() {
-		System.out.println("- eliminar Empleado sino existe insertamos uno previamente");
+		logger.info("- eliminar Empleado sino existe insertamos uno previamente");
 		empleado = empleadoService.buscarPorDni("1");
 		if (empleado == null)
 		{
@@ -100,13 +111,19 @@ public class EmpleadoTest {
 		}
 		
 		empleadoService.eliminar(empleado);
+		
+		if(empleadoService.buscarPorDni("1") != null)
+		{
+			logger.error("No se ha podido eliminar empleado de bbdd");
+		}
+		
 		assertTrue(empleadoService.buscarPorDni("1") == null);
 	}
 	
 	@Test
 	@Transactional
 	public void buscarEmpleados() {
-		System.out.println("- buscar todos los empleados sino existe ninguno insertamos uno");
+		logger.info("- buscar todos los empleados sino existe ninguno insertamos uno");
 		List<Empleado> empleados = empleadoService.buscarEmpleados();
 		
 		if (empleados.size() == 0)
