@@ -26,18 +26,26 @@ public class EmpresaServiceImp implements EmpresaService{
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	
-	public Empresa save(Empresa empresa) {
+	public Empresa guardar(Empresa empresa) {
 		// TODO Auto-generated method stub
 		return empresaRepository.save(empresa);
 	}
 
-	public void delete(Empresa empresa) {
+	public void eliminar(Empresa empresa) {
 		// TODO Auto-generated method stub
 		empresaRepository.delete(empresa);	
 	}
 	
-	//llamar al repositorio y devolver lo que te devuelve el repositorio
-	public Empresa findByNif(String id) {
+	public Empresa buscarPorNif(String id) {
 		return empresaRepository.findOne(id);
 	}
+	
+	public List<Empresa> buscarEmpresas() {
+		return Lists.newArrayList(empresaRepository.findAll());
+	}
+	
+	public void commit() {
+		 empresaRepository.notifyAll();
+	}
+	
 }

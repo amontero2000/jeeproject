@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.collect.Lists;
 
 import es.microforum.model.Empleado;
+import es.microforum.model.Empresa;
 import es.microforum.repository.EmpleadoRepository;
 import es.microforum.serviceapi.EmpleadoService;
 
@@ -27,23 +28,21 @@ public class EmpleadoServiceImp implements EmpleadoService {
 	private EmpleadoRepository empleadoRepository;
 	
 	
-	public EmpleadoServiceImp() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Empleado save(Empleado empleado) {
+	public Empleado guardar(Empleado empleado) {
 		// TODO Auto-generated method stub
 		return empleadoRepository.save(empleado);
 	}
 
-	public void delete(Empleado empleado) {
-		// TODO Auto-generated method stub
+	public void eliminar(Empleado empleado) {
 		empleadoRepository.delete(empleado);	
 	}
 	
 	//llamar al repositorio y devolver lo que te devuelve el repositorio
-		public Empleado findByDni(String id) {
-			return empleadoRepository.findOne(id);
-		}
+	public Empleado buscarPorDni(String id) {
+		return empleadoRepository.findOne(id);
+	}
+		
+	public List<Empleado> buscarEmpleados() {
+		return Lists.newArrayList(empleadoRepository.findAll());
+	}
 }
