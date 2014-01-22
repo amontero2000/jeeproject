@@ -51,11 +51,19 @@ public class EmpleadoTest {
 	public void testinsertarEmpleado() {
 		logger.info("- Insertar Empleado");
 		
-		byte[] imagen = null;
-        
-		empleado = new Empleado("1", null, "Empleado 1","direccion 1", "tipo Empleado1", "empleado col1",4000.55, 33.88, 40.55,imagen);
-		empleadoService.guardar(empleado);
 		
+		empleado = empleadoService.buscarPorDni("1");
+		if (empleado == null)
+		{
+			byte[] imagen = null;
+			empleado = new Empleado("1", null, "Empleado 1","direccion 1", "tipo Empleado1", "empleado col1",4000.55, 33.88, 40.55,imagen);			
+		}
+		else
+		{
+			empleado.setNombre("nombreModificado");
+		}
+		
+		empleadoService.guardar(empleado);
 		empleado = empleadoService.buscarPorDni("1");
 		
 		if(empleado==null)

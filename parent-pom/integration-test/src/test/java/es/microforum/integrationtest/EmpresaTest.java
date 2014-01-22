@@ -2,10 +2,14 @@ package es.microforum.integrationtest;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+
 
 
 import org.junit.Before;
@@ -39,6 +43,7 @@ public class EmpresaTest {
 	SimpleDateFormat sdf;
 	Set <Empleado> empleados;
 	private static Logger logger;
+	Date fecha;
 
 
     @Before
@@ -47,16 +52,25 @@ public class EmpresaTest {
     	empresaService = ctx.getBean("springJpaEmpresaService", EmpresaService.class);
     	sdf = new SimpleDateFormat("dd/MM/yyyy");
     	empleados = new HashSet<Empleado>();
-    	empresanueva = new Empresa("1", "Empresa1", "direccionFiscalEmpresa1",sdf.parse("05/07/2013"),empleados);
+    	fecha = sdf.parse("05/07/2013");
     }
 
-	//@Transactional: No modificar la bd
     @Test
-	//@Transactional
+	@Transactional
 	public void testinsertarEmpresa() {
 		logger.info("- Insertar Empresa");
 		
-		empresaService.guardar(empresanueva);
+		empresa = empresaService.buscarPorNif("1");
+		if (empresa == null)
+		{
+			empresa = new Empresa("1", "Empresa1", "direccionFiscalEmpresa1",fecha,empleados);
+		}
+		else
+		{
+			empresa.setNombre("nombreModificado");
+		}
+		
+		empresaService.guardar(empresa);
 		
 		empresa = empresaService.buscarPorNif("1");
 		assertTrue(empresa != null);
