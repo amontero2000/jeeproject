@@ -3,14 +3,14 @@
  	<parent>
 	    <groupId>es.microforum</groupId>
 	    <artifactId>parent-pom</artifactId>
-	    <version>0.0.1</version>
+	    <version>0.0.2-SNAPSHOP</version>
  	</parent>
  	<artifactId>service-api</artifactId>
  	<dependencies>
 	  	<dependency>
 			<groupId>es.microforum</groupId>
   			<artifactId>model</artifactId>
-  			<version>0.0.1</version>
+  			<version>0.0.2-SNAPSHOP</version>
   			<scope>compile</scope>
 		</dependency>
 		<dependency>
