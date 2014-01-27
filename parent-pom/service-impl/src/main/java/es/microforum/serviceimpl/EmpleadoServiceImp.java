@@ -30,21 +30,24 @@ public class EmpleadoServiceImp implements EmpleadoService {
 	@Autowired
 	private EmpleadoRepository empleadoRepository;
 	
-	
+	@Override
 	public Empleado guardar(Empleado empleado) {
 		// TODO Auto-generated method stub
 		return empleadoRepository.save(empleado);
 	}
-
+	
+	@Override
 	public void eliminar(Empleado empleado) {
 		empleadoRepository.delete(empleado);	
 	}
 	
 	//llamar al repositorio y devolver lo que te devuelve el repositorio
+	@Override
 	public Empleado buscarPorDni(String id) {
 		return empleadoRepository.findOne(id);
 	}
-		
+	
+	@Override
 	public List<Empleado> buscarEmpleados() {
 		return Lists.newArrayList(empleadoRepository.findAll());
 	}
@@ -52,6 +55,14 @@ public class EmpleadoServiceImp implements EmpleadoService {
 	@Transactional(readOnly = true)
 	public Page<Empleado> findByNombre(String name, Pageable pageable)
 	{
-		return empleadoRepository.findByNombre(name, pageable);
+		//return empleadoRepository.findByNombre(name, pageable);
+		return empleadoRepository.findAll(pageable);
 	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public Page<Empleado> findAll(Pageable pageable) {
+		return empleadoRepository.findAll(pageable);
+	}
+	
 }

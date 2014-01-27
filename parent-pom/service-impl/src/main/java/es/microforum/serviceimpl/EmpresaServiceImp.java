@@ -29,28 +29,39 @@ public class EmpresaServiceImp implements EmpresaService{
 	@Autowired
 	private EmpresaRepository empresaRepository;
 	
+	@Override
 	public Empresa guardar(Empresa empresa) {
 		// TODO Auto-generated method stub
 		return empresaRepository.save(empresa);
 	}
 
+	@Override
 	public void eliminar(Empresa empresa) {
 		// TODO Auto-generated method stub
 		empresaRepository.delete(empresa);	
 	}
 	
+	@Override
 	public Empresa buscarPorNif(String id) {
 		return empresaRepository.findOne(id);
 	}
 	
+	@Override
 	public List<Empresa> buscarEmpresas() {
 		return Lists.newArrayList(empresaRepository.findAll());
 	}
 	
+	@Override
 	public Page<Empresa> findByNombre(String name, Pageable pageable)
 	{
-		return empresaRepository.findByNombre(name, pageable);
+		//return empresaRepository.findByNombre(name, pageable);
+		return empresaRepository.findAll(pageable);
 	}
 	
+	@Override
+	@Transactional(readOnly=true)
+	public Page<Empresa> findAll(Pageable pageable) {
+		return empresaRepository.findAll(pageable);
+	}
 		
 }

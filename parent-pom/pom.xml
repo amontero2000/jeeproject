@@ -3,23 +3,24 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>es.microforum</groupId>
 	<artifactId>parent-pom</artifactId>
-	<version>0.0.2-SNAPSHOP</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<spring.version>4.0.0.RELEASE</spring.version>
+		<spring.version>3.2.6.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<hibernatejpa.version>1.0.1.Final</hibernatejpa.version>
-		<springdatajpa.version>1.4.2.RELEASE</springdatajpa.version>
+		<springdatajpa.versions>1.4.2.RELEASE</springdatajpa.versions>
+		<springdatajpa.version>1.1.0.RELEASE</springdatajpa.version>
+		<spring-data-jpa.version>1.4.3.RELEASE</spring-data-jpa.version>
 		<com.google.guava.version>10.0.1</com.google.guava.version>
 		<hibernate.version>3.6.8.Final</hibernate.version>
-		<spring-data-jpa.version>1.4.3.RELEASE</spring-data-jpa.version>
 		<mysql.version>5.1.6</mysql.version>
 		<log4version>1.2.16</log4version>
 		<org.slf4j.version>1.6.1</org.slf4j.version>
 		<slf4j.version>1.6.4</slf4j.version>
-		<logback.version>1.0.1</logback.version>
 		<groovy.version>1.8.6</groovy.version>
+		<logback.version>1.0.13</logback.version>
 	</properties>
 
 	<dependencies>
@@ -27,6 +28,26 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -37,10 +58,9 @@
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-jpa</artifactId>
-				<version>${spring-data-jpa.version}</version>
+				<version>${springdatajpa.versions}</version>
 			</dependency>
-
-
+			
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
@@ -56,11 +76,6 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
 				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-jpa</artifactId>
-				<version>${springdatajpa.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate.javax.persistence</groupId>
@@ -119,41 +134,25 @@
       		<artifactId>spring-beans</artifactId>
       		<version>${spring.version}</version>
     	</dependency>
-    	<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
 
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-core</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
             
 			
 			<!-- <dependency> -->
 			<!-- <groupId>es.microforum</groupId> -->
 			<!-- <artifactId>model</artifactId> -->
-			<!-- <version>0.0.2-SNAPSHOP</version> -->
+			<!-- <version>0.0.2-SNAPSHOT</version> -->
 			<!-- <scope>compile</scope> -->
 			<!-- </dependency> -->
 			<!-- <dependency> -->
 			<!-- <groupId>es.microforum</groupId> -->
 			<!-- <artifactId>service-api</artifactId> -->
-			<!-- <version>0.0.2-SNAPSHOP</version> -->
+			<!-- <version>0.0.2-SNAPSHOT</version> -->
 			<!-- <scope>compile</scope> -->
 			<!-- </dependency> -->
 			<!-- <dependency> -->
 			<!-- <groupId>es.microforum</groupId> -->
 			<!-- <artifactId>service-impl</artifactId> -->
-			<!-- <version>0.0.2-SNAPSHOP</version> -->
+			<!-- <version>0.0.2-SNAPSHOT</version> -->
 			<!-- <scope>compile</scope> -->
 			<!-- </dependency> -->
 

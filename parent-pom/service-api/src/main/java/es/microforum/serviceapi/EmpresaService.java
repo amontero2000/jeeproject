@@ -27,5 +27,7 @@ public interface EmpresaService {
 		
 		//buscar Empresa por nombre devolver paginado
 		public Page<Empresa> findByNombre(String name, Pageable pageable);
+		
+		Page<Empresa> findAll(Pageable pageable);
 
 }
