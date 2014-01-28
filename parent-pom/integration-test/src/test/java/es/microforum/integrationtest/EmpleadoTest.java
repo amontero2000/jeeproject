@@ -5,6 +5,7 @@ package es.microforum.integrationtest;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -18,7 +19,9 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.microforum.model.Empleado;
+import es.microforum.model.Empresa;
 import es.microforum.serviceapi.EmpleadoService;
+import es.microforum.serviceapi.EmpresaService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,35 +39,41 @@ public class EmpleadoTest {
 	@Autowired 
 	private ApplicationContext ctx;
 	EmpleadoService empleadoService;
+	EmpresaService empresaService;
 	Empleado empleado;
 	private static Logger logger;
-
+	
 
     @Before
     public void setUp() throws Exception {
     	empleadoService = ctx.getBean("springJpaEmpleadoService", EmpleadoService.class);
+    	empresaService = ctx.getBean("springJpaEmpresaService", EmpresaService.class);
     	logger = LoggerFactory.getLogger(EmpleadoTest.class);
     }
 
 	@Test
-	@Transactional
+	//@Transactional
 	public void testinsertarEmpleado() {
 		logger.info("- Insertar Empleado");
 		
+		Empresa empresa = empresaService.buscarPorNif("2");
 		
-		empleado = empleadoService.buscarPorDni("1");
-		if (empleado == null)
+		if (empresa != null)
 		{
-			byte[] imagen = null;
-			empleado = new Empleado("1", null, "Empleado 1","direccion 1", "tipo Empleado1", "empleado col1",4000.55, 33.88, 40.55,imagen);			
+			empleado = empleadoService.buscarPorDni("1");
+			if (empleado == null)
+			{
+				byte[] imagen = null;
+				empleado = new Empleado("4", empresa, "Empleado 4","direccion 4", "tipo Empleado4", "empleado col4",70.55, 43.44, 48.75,imagen);			
+			}
+			else
+			{
+				//empleado.setNombre("nombreModificado");
+				empleado.setEmpresa(empresa);
+			}
 		}
-		else
-		{
-			empleado.setNombre("nombreModificado");
-		}
-		
 		empleadoService.guardar(empleado);
-		empleado = empleadoService.buscarPorDni("1");
+		empleado = empleadoService.buscarPorDni("3");
 		
 		if(empleado==null)
 		{

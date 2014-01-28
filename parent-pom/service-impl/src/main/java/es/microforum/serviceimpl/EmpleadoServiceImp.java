@@ -33,7 +33,25 @@ public class EmpleadoServiceImp implements EmpleadoService {
 	@Override
 	public Empleado guardar(Empleado empleado) {
 		// TODO Auto-generated method stub
-		return empleadoRepository.save(empleado);
+		Empleado emp = empleadoRepository.findOne(empleado.getDni());
+		if(emp == null)
+		{
+			emp = new Empleado();
+		}
+		emp.setDni(empleado.getDni());
+		
+		emp.setCantidadHoras(empleado.getCantidadHoras());
+		emp.setDireccion(empleado.getDireccion());
+		emp.setEmpleadocol(empleado.getEmpleadocol());
+		emp.setNombre(empleado.getNombre());
+		emp.setEmpresa(empleado.getEmpresa());
+		emp.setImagen(empleado.getImagen());
+		emp.setValorHora(empleado.getValorHora());
+		emp.setSalarioAnual(empleado.getSalarioAnual());
+		emp.setDni(empleado.getDni());
+		emp.setVersion(empleado.getVersion());
+		emp.setTipoEmpleado(empleado.getTipoEmpleado());
+		return empleadoRepository.save(emp);
 	}
 	
 	@Override
