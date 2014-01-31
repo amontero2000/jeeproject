@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:message code="label_empleado_list" var="labelEmpleadoList" />
+	<spring:message code="label_empleado_nombre" var="labelEmpleadoNombre" />
+	<spring:message code="label_empleado_direccion" var="labelEmpleadoDireccion" />
+	<spring:message code="label_empleado_tipo"	var="labelempleadotipo" />
+	<spring:message code="label_empleado_col"	var="labelempleadocol" />
+	<spring:message code="label_empleado_salario_anual"	var="labelempleadosalarioanual" />
+	<spring:message code="label_empleado_horas"	var="labelempleadohoras" />
+	<spring:url value="/empleados/" var="showEmpleadoUrl" />
+
+	<script type="text/javascript">
+		$(function() {
+			$("#list").jqGrid(
+					{
+						datatype : 'json',
+						mtype : 'GET',
+						colNames : [ '${labelEmpleadoNombre}',
+								'${labelEmpleadoDireccion}',
+								'${labelempleadotipo}',
+								'${labelempleadocol}',
+								'${labelempleadohoras}'],
+						colModel : [ {
+							name : 'nombre',
+							index : 'nombre',
+							sortable : false,
+							width : 150
+						}, {
+							name : 'direccion',
+							index : 'direccion',
+							sortable : false,
+							width : 75
+						}, {
+							name : 'tipoEmpleado',
+							index : 'tipoEmpleado',
+							sortable : false,
+							width : 75
+						}, {
+							name : 'empleadocol',
+							index : 'empleadocol',
+							sortable : false,
+							width : 75
+						}, {
+							name : 'cantidadHoras',
+							index : 'cantidadHoras',
+							sortable : false,
+							width : 75
+						}],
+						jsonReader : {
+							root : "empleadoData",
+							page : "currentPage",
+							total : "totalPages",
+							records : "totalRecords",
+							repeatitems : false,
+							id : "dni"
+						},
+				        pager: '#pager',
+				        rowNum:10,
+				        rowList:[5,10,15],
+// 				        sortname: 'firstName',
+// 				        sortorder: 'asc',
+						viewrecords : true,
+						gridview : true,
+						height : 250,
+						width : 700,
+						caption : '${labelEmpleadoList}',
+						onSelectRow : function(id) {
+							document.location.href = "${showEmpleadoUrl}/" + id;
+						}
+					});
+			$("#search").click(
+					function() {
+						$("#list").jqGrid().setGridParam(
+								{
+									url : '${showEmpleadoUrl}listgrid?name='
+										+ $("#nombre").val()
+								}).trigger("reloadGrid");
+					});
+			$("#new").click(function() {
+				document.location.href = "${showEmpleadoUrl}?form";
+			});
+		});
+	</script>
+
+	<c:if test="${not empty message}">
+		<div id="message" class="${message.type}">${message.message}</div>
+	</c:if>
+
+	<h2>${labelEmpleadoList}</h2>
+	<div id="criteria">
+		<input type="text" id="nombre" />
+		<button name="search" id="search" type="new"
+			class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Search</span>
+		</button>
+	</div>
+	<div>
+		<table id="list">
+			<tr>
+				<td />
+			</tr>
+		</table>
+	</div>
+	<div id="pager"></div>
+	<button name="new" id="new" type="search"
+		class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+		<span class="ui-button-text">New</span>
+	</button>
+
+
+</div>

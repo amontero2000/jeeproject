@@ -73,11 +73,9 @@ public class EmpleadoServiceImp implements EmpleadoService {
 	@Transactional(readOnly = true)
 	public Page<Empleado> findByNombre(String name, Pageable pageable)
 	{
-		//return empleadoRepository.findByNombre(name, pageable);
-		return empleadoRepository.findAll(pageable);
+		return empleadoRepository.findByNombre(name, pageable);
 	}
 	
-	@Override
 	@Transactional(readOnly=true)
 	public Page<Empleado> findAll(Pageable pageable) {
 		return empleadoRepository.findAll(pageable);

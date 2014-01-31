@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core"  
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_empleado_info" var="labelEmpleadoInfo"/>
+    <spring:message code="label_empleado_nombre" var="labelEmpleadoNombre" />
+    <spring:message code="label_empleado_direccion" var="labelEmpleadoDireccion" />
+    <spring:message code="label_empleado_tipo"	var="labelempleadotipo" />
+	<spring:message code="label_empleado_col"	var="labelempleadocol" />
+	<spring:message code="label_empleado_salario_anual"	var="labelempleadosalarioanual" />
+	<spring:message code="label_empleado_valor_hora"	var="labelempleadovalorhora" />
+	<spring:message code="label_empleado_horas"	var="labelempleadohoras" />
+	<spring:message code="label_empleado_empresa"	var="labelempleadoempresa" />
+	<spring:message code="label_empleado_version"	var="labelempleadoversion" />
+	<spring:message code="label_empleado_dni"	var="labelempleadodni" />
+    <spring:message code="label_empleado_update" var="labelEmpleadoUpdate"/>       
+     <spring:message code="label_empleado_delete" var="labelEmpleadoDelete"/>
+    <spring:url value="/empleados" var="editEmpleadoUrl"/>    
+    <spring:url value="/empleados" var="deleteEmpleadoUrl"/>
+    <spring:url value="/empleados/photo" var="empleadoPhotoUrl"/>
+
+    <h1>${labelEmpleadoInfo}</h1>
+
+    <div id="contactInfo">
+
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+
+        <table>
+        	<tr>
+                <td>${labelempleadodni}</td>
+                <td>${empleado.dni}</td>
+            </tr>
+            <tr>
+                <td>${labelEmpleadoNombre}</td>
+                <td>${empleado.nombre}</td>
+            </tr>
+            <tr>
+                <td>${labelEmpleadoDireccion}</td>
+                <td>${empleado.direccion}</td>
+            </tr> 
+            <tr>
+                <td>${labelempleadotipo}</td>
+                <td>${empleado.tipoEmpleado}</td>
+            </tr>   
+             <tr>
+                <td>${labelempleadocol}</td>
+                <td>${empleado.empleadocol}</td>
+            </tr>
+             <tr>
+                <td>${labelempleadosalarioanual}</td>
+                <td>${empleado.salarioAnual}</td>
+            </tr>
+             <tr>
+                <td>${labelempleadovalorhora}</td>
+                <td>${empleado.valorHora}</td>
+            </tr>
+             <tr>
+                <td>${labelempleadohoras}</td>
+                <td>${empleado.cantidadHoras}</td>
+            </tr>
+             <tr>
+                <td>${labelempleadoversion}</td>
+                <td >${empleado.version}</td>
+            </tr>
+            <tr>
+                <td>${labelempleadoempresa}</td>
+                <td>${empresa.nombre}</td>
+            </tr>
+            
+        </table>         
+       
+        <a href="${editEmpleadoUrl}/${empleado.dni}?form">${labelEmpleadoUpdate}</a>     
+        <BR />
+        <BR />
+        <a href="${deleteEmpleadoUrl}/${empleado.dni}?formdelete">${labelEmpleadoDelete}</a>
+                      
+    </div>
+
+</div>

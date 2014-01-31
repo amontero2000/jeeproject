@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/> 
+    <spring:message code="label_empresa_update" var="labelEmpresaUpdate"/>
+    <spring:message code="label_empresa_new" var="labelEmpresaNew"/>
+    <spring:message code="label_empresa_nif" var="labelEmpresaNif" />
+	<spring:message code="label_empresa_nombre" var="labelEmpresaNombre" />
+	<spring:message code="label_empresa_direccion" var="labelEmpresaDireccion" />
+	<spring:message code="label_empresa_fecha"	var="labelEmpresaFecha" />
+	<spring:message code="label_empresa_version"	var="labelEmpresaVersion" />
+    
+    <spring:eval expression="empresa.nif == null ? labelEmpresaNew:labelEmpresaUpdate" var="formTitle"/>
+    <script type="text/javascript">
+    $(function(){ 
+    	
+    	$('#fechaInicioActividades').datepicker({ 
+            dateFormat: 'yy/mm/dd',
+            changeYear: true
+        });
+    	
+        $("#nombre").ckeditor(
+            {
+                toolbar : 'Basic',
+                uiColor : '#CCCCCC'
+            }              
+        );     
+    });
+    </script>
+    <h1>${formTitle}</h1>
+    <div id="empresaUpdate">
+    <form:form modelAttribute="empresa" id="empresaUpdateForm" method="post" >
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+        <form:label path="nif">
+            ${labelEmpresaNif} 
+        </form:label>
+        <form:input path="nif" />
+        <div>
+            <form:errors path="nif" cssClass="error" />
+        </div>
+        <p/>
+        <form:label path="nombre">
+            ${labelEmpresaNombre} 
+        </form:label>
+        <form:input path="nombre" />
+        <div>
+            <form:errors path="nombre" cssClass="error" />
+        </div>
+        <p/>
+        <form:label path="direccionFiscal">
+            ${labelEmpresaDireccion} 
+        </form:label>
+        <form:input path="direccionFiscal" />
+        <div>
+            <form:errors path="direccionFiscal" cssClass="error" />
+        </div>
+        <p/>
+        <form:label path="fechaInicioActividades">
+            ${labelEmpresaFecha}
+        </form:label>
+        <form:input path="fechaInicioActividades" id="fechaInicioActividades"/>    
+        <div>
+            <form:errors path="fechaInicioActividades" cssClass="error" />
+        </div>        
+        <p/>
+        
+        <form:hidden path="version" />
+        
+        <button name="submit" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span class="ui-button-text">Guardar</span>
+        </button> 
+        <button name="reset" type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span class="ui-button-text">vaciar</span>
+        </button>           
+                      
+    </form:form>   
+    </div>
+
+</div>

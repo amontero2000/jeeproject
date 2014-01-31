@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div id="main" xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:sec="http://www.springframework.org/security/tags" version="2.0">
+	<spring:message code="label_empleados" var="labelEmpleados" />
+	<spring:message code="label_upload" var="labelUpload" />
+	<spring:message code="label_combo" var="labelCombo" />
+	<spring:message code="label_combo" var="labelCombo" />
+	<spring:message code="label_combos_ajax" var="labelCombosAjax" />
+	<spring:message code="label_menu_example" var="labelMenuExample" />
+	<spring:message code="label_empresa" var="labelEmpresas" />
+
+
+	<script type="text/javascript">
+    $(function(){
+        // Attach the dynatree widget to an existing div id="tree" element
+        // and pass the tree options as an argument to the dynatree() function:
+        $("#tree").dynatree({
+            onActivate: function(node) {
+                // A DynaTreeNode object is passed to the activation handler
+                // Note: we also get this event, if persistence is on, and the page is reloaded.
+        		if (node.data.action){
+            		window.location = node.data.action;        			
+        		}
+            },
+            persist: true,
+            children: [ // Pass an array of nodes.
+                {title: "${labelMenuExample}", isFolder: true,
+                    children: [
+                       <sec:authorize access="hasRole('supervisor')">
+                       {title: "${labelEmpleados}", action:"empleados"},
+                       {title: "${labelEmpresas}", action:"empresas"},
+                      </sec:authorize>
+                    ]
+                },
+            ]
+        });
+    });
+    </script>
+	<div id="menu">
+	<div id="tree"/>
+	</div>
+</div>

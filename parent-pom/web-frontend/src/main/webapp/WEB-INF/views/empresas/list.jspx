@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:message code="label_empresa_list" var="labelEmpresaList" />
+	<spring:message code="label_empresa_nif" var="labelEmpresaNif" />
+	<spring:message code="label_empresa_nombre" var="labelEmpresaNombre" />
+	<spring:message code="label_empresa_direccion" var="labelEmpresaDireccion" />
+	<spring:message code="label_empresa_fecha"	var="labelEmpresaFecha" />
+	<spring:url value="/empresas/" var="showEmpresaUrl" />
+
+	<script type="text/javascript">
+		$(function() {
+			$("#list").jqGrid(
+					{
+						datatype : 'json',
+						mtype : 'GET',
+						colNames : ['${labelEmpresaNif}',
+								'${labelEmpresaNombre}',
+								'${labelEmpresaDireccion}',
+								'${labelEmpresaFecha}'],
+						colModel : [ {
+							name : 'nif',
+							index : 'nif',
+							sortable : false,
+							width : 150
+						}, {
+							name : 'nombre',
+							index : 'nombre',
+							sortable : false,
+							width : 100
+						}, {
+							name : 'direccionFiscal',
+							index : 'direccionFiscal',
+							sortable : false,
+							width : 100
+						}, {
+							name : 'fechaInicioActividades',
+							index : 'fechaInicioActividades',
+							sortable : false,
+							width : 100,
+							formatter: function (cellval, opts) {
+							    var date = new Date(cellval);
+							    opts = $.extend({}, $.jgrid.formatter.date, opts);
+							    return $.fmatter.util.DateFormat("", date, 'd-M-Y', opts);
+							}
+						}],
+						jsonReader : {
+							root : "empresaData",
+							page : "currentPage",
+							total : "totalPages",
+							records : "totalRecords",
+							repeatitems : false,
+							id : "nif"
+						},
+				        pager: '#pager',
+				        rowNum:10,
+				        rowList:[5,10,15],
+// 				        sortname: 'firstName',
+// 				        sortorder: 'asc',
+						viewrecords : true,
+						gridview : true,
+						height : 250,
+						width : 700,
+						caption : '${labelEmpresaList}',
+						onSelectRow : function(id) {
+							document.location.href = "${showEmpresaUrl}/" + id;
+						}
+					});
+			$("#search").click(
+					function() {
+						$("#list").jqGrid().setGridParam(
+								{
+									url : '${showEmpresaUrl}listgrid?name='
+										+ $("#nombre").val()
+								}).trigger("reloadGrid");
+					});
+			$("#new").click(function() {
+				document.location.href = "${showEmpresaUrl}?form";
+			});
+		});
+	</script>
+
+	<c:if test="${not empty message}">
+		<div id="message" class="${message.type}">${message.message}</div>
+	</c:if>
+
+	<h2>${labelEmpresaList}</h2>
+	<div id="criteria">
+		<input type="text" id="nombre" />
+		<button name="search" id="search" type="new"
+			class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+			<span class="ui-button-text">Search</span>
+		</button>
+	</div>
+	<div>
+		<table id="list">
+			<tr>
+				<td />
+			</tr>
+		</table>
+	</div>
+	<div id="pager"></div>
+	<button name="new" id="new" type="search"
+		class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+		<span class="ui-button-text">New</span>
+	</button>
+
+
+</div>

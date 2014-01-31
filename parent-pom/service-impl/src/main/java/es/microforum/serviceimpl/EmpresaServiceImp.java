@@ -54,11 +54,9 @@ public class EmpresaServiceImp implements EmpresaService{
 	@Override
 	public Page<Empresa> findByNombre(String name, Pageable pageable)
 	{
-		//return empresaRepository.findByNombre(name, pageable);
-		return empresaRepository.findAll(pageable);
+		return empresaRepository.findByNombre(name, pageable);
 	}
 	
-	@Override
 	@Transactional(readOnly=true)
 	public Page<Empresa> findAll(Pageable pageable) {
 		return empresaRepository.findAll(pageable);

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+ 	<global-method-security pre-post-annotations="enabled" />
+
+	<http use-expressions="true">
+		<intercept-url pattern='/*' access='isAuthenticated()' />
+<!-- 		<form-login login-page="/contactos" -->
+<!-- 			authentication-failure-url="/security/loginfail" default-target-url="/contactos" /> -->
+<!-- 		<logout logout-success-url="/contactos" /> -->
+	<form-login />
+	<logout />
+	<remember-me />
+	</http>
+	
+
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="user1" password="password" authorities="supervisor, user" />
+				<user name="user2" password="password" authorities="user" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>

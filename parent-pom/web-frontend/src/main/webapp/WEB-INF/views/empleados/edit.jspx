@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <spring:message code="label_contact_new" var="labelContactNew"/>
+    <spring:message code="label_contact_update" var="labelContactUpdate"/>
+    <spring:message code="label_contact_first_name" var="labelContactFirstName"/>
+    <spring:message code="label_contact_last_name" var="labelContactLastName"/>
+    <spring:message code="label_contact_birth_date" var="labelContactBirthDate"/>
+    <spring:message code="label_contact_description" var="labelContactDescription"/>
+    <spring:message code="label_contact_photo" var="labelContactPhoto"/>
+    
+    <spring:message code="label_empleado_update" var="labelEmpleadoUpdate"/>
+    <spring:message code="label_empleado_new" var="labelEmpleadoNew"/>
+    <spring:message code="label_empleado_dni"	var="labelempleadodni" />
+    <spring:message code="label_empleado_nombre" var="labelEmpleadoNombre" />
+    <spring:message code="label_empleado_direccion" var="labelEmpleadoDireccion" />
+    <spring:message code="label_empleado_tipo" var="labelempleadotipo" />
+	<spring:message code="label_empleado_col" var="labelempleadocol" />
+	<spring:message code="label_empleado_salario_anual" var="labelempleadosalarioanual" />
+	<spring:message code="label_empleado_valor_hora" var="labelempleadovalorhora" />
+	<spring:message code="label_empleado_horas"	var="labelempleadohoras" />
+	<spring:message code="label_empleado_empresa" var="labelempleadoempresa" />
+	<spring:message code="label_empleado_version" var="labelempleadoversion" />
+    
+    
+    <spring:eval expression="empleado.dni == null ? labelEmpleadoNew:labelEmpleadoUpdate" var="formTitle"/>
+    <script type="text/javascript">
+    $(function(){ 
+        $("#nombre").ckeditor(
+            {
+                toolbar : 'Basic',
+                uiColor : '#CCCCCC'
+            }              
+        );     
+    });
+    </script>
+    <h1>${formTitle}</h1>
+    <div id="empleadoUpdate">
+    <form:form modelAttribute="empleado" id="empleadoUpdateForm" method="post" >
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+        <form:label path="dni">
+            ${labelempleadodni} 
+        </form:label>
+        <form:input path="dni" />
+        <div>
+            <form:errors path="dni" cssClass="error" />
+        </div>
+        <p/>
+        <form:label path="nombre">
+            ${labelEmpleadoNombre} 
+        </form:label>
+        <form:input path="nombre" />
+        <div>
+            <form:errors path="nombre" cssClass="error" />
+        </div>
+        <p/>
+        <form:label path="direccion">
+            ${labelEmpleadoDireccion} 
+        </form:label>
+        <form:input path="direccion" />
+        <div>
+            <form:errors path="direccion" cssClass="error" />
+        </div>
+        <p/>
+        <form:label path="tipoEmpleado">
+            ${labelempleadotipo}
+        </form:label>
+        <form:input path="tipoEmpleado" id="tipoEmpleado"/>    
+        <div>
+            <form:errors path="tipoEmpleado" cssClass="error" />
+        </div>        
+        <p/>
+        <form:label path="empleadocol">
+            ${labelempleadocol}
+        </form:label>
+        <form:input path="empleadocol" id="empleadocol"/>    
+        <div>
+            <form:errors path="empleadocol" cssClass="error" />
+        </div>        
+        <p/>
+        <form:label path="salarioAnual">
+            ${labelempleadosalarioanual}
+        </form:label>
+        <form:input path="salarioAnual" id="salarioAnual"/>    
+        <div>
+            <form:errors path="salarioAnual" cssClass="error" />
+        </div>        
+        <p/>
+         <form:label path="valorHora">
+            ${labelempleadovalorhora}
+        </form:label>
+        <form:input path="valorHora" id="valorHora"/>    
+        <div>
+            <form:errors path="valorHora" cssClass="error" />
+        </div>        
+        <p/>
+        <form:label path="cantidadHoras">
+            ${labelempleadohoras}
+        </form:label>
+        <form:input path="cantidadHoras" id="cantidadHoras"/>    
+        <div>
+            <form:errors path="cantidadHoras" cssClass="error" />
+        </div>        
+        <p/>
+        
+        <form:hidden path="version" />
+        
+        <button name="submit" type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span class="ui-button-text">Guardar</span>
+        </button> 
+        <button name="reset" type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span class="ui-button-text">vaciar</span>
+        </button>           
+                      
+    </form:form>   
+    </div>
+
+</div>
