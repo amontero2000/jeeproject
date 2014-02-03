@@ -15,6 +15,7 @@ import es.microforum.model.Empresa;
 import es.microforum.repository.EmpresaRepository;
 import es.microforum.serviceapi.EmpresaService;
 
+
 /**
  * @author Clarence
  *
@@ -57,6 +58,7 @@ public class EmpresaServiceImp implements EmpresaService{
 		return empresaRepository.findByNombre(name, pageable);
 	}
 	
+	@Override
 	@Transactional(readOnly=true)
 	public Page<Empresa> findAll(Pageable pageable) {
 		return empresaRepository.findAll(pageable);

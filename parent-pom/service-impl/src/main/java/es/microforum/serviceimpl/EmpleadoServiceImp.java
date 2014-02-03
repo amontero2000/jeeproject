@@ -17,6 +17,7 @@ import es.microforum.model.Empresa;
 import es.microforum.repository.EmpleadoRepository;
 import es.microforum.serviceapi.EmpleadoService;
 
+
 /**
  * @author Clarence
  *
@@ -63,6 +64,14 @@ public class EmpleadoServiceImp implements EmpleadoService {
 	@Override
 	public Empleado buscarPorDni(String id) {
 		return empleadoRepository.findOne(id);
+	}
+	
+	@Override
+	public Empleado buscarPorDniEmpresa(String id) {
+		Empleado empleado = empleadoRepository.findOne(id);
+		Empresa empresa = empleado.getEmpresa();
+		empresa.getEmpleados().size();
+		return empleado;
 	}
 	
 	@Override

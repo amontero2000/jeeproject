@@ -20,6 +20,9 @@ public interface EmpleadoService {
 		// buscar Empleado por dni
 		public Empleado buscarPorDni(String id);
 		
+		// buscar Empleado por dni
+		public Empleado buscarPorDniEmpresa(String id);
+		
 		// buscar todos los empleados
 		public List<Empleado> buscarEmpleados();
 		

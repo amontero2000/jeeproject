@@ -109,6 +109,17 @@
             <form:errors path="cantidadHoras" cssClass="error" />
         </div>        
         <p/>
+        <form:label path=empresa>
+            ${labelempleadoempresa}
+        </form:label>
+        <form:select path="empresa">
+        	<form:options items="${empresasList}" itemLabel="nif" itemValue="nif"/>
+        </form:select>
+        <div>
+            <form:errors path="empresa" cssClass="error" />
+        </div>        
+        <p/>
+        
         
         <form:hidden path="version" />
         

@@ -72,7 +72,7 @@
             </tr>
             <tr>
                 <td>${labelempleadoempresa}</td>
-                <td>${empresa.nombre}</td>
+                <td>${empleado.empresa.nombre}</td>
             </tr>
             
         </table>         

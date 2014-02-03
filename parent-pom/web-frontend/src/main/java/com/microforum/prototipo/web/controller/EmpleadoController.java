@@ -29,6 +29,7 @@ import com.microforum.prototipo.web.util.UrlUtil;
 
 import es.microforum.model.Empleado;
 import es.microforum.serviceapi.EmpleadoService;
+import es.microforum.serviceapi.EmpresaService;
 
 
 @RequestMapping("/empleados")
@@ -42,6 +43,9 @@ public class EmpleadoController {
 
 	@Autowired
 	private EmpleadoService empleadoService;
+	
+	@Autowired
+	private EmpresaService empresaService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model uiModel) {
@@ -97,6 +101,7 @@ public class EmpleadoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String create(@Valid Empleado empleado, BindingResult bindingResult,	Model uiModel, HttpServletRequest httpServletRequest,RedirectAttributes redirectAttributes, Locale locale) {
 		logger.info("Crear empleado");
+		
 		if (bindingResult.hasErrors()) {
 			uiModel.addAttribute("message",	
 					new Message("error", messageSource.getMessage("empleado_save_fail", new Object[] {}, locale)));
@@ -106,9 +111,10 @@ public class EmpleadoController {
 		uiModel.asMap().clear();
 		redirectAttributes.addFlashAttribute("message",	
 				new Message("success", messageSource.getMessage("empleado_save_success", new Object[] {}, locale)));
-
+		
 		logger.info("Empleado id: " + empleado.getDni());
 
+		empleado.setEmpresa(empresaService.buscarPorNif(empleado.getEmpresa().getNif()));
 		empleadoService.guardar(empleado);
 		return "redirect:/empleados/" + UrlUtil.encodeUrlPathSegment(empleado.getDni().toString(),httpServletRequest);
 	}
@@ -118,6 +124,8 @@ public class EmpleadoController {
 	public String createForm(Model uiModel) {
 		Empleado empleado = new Empleado();
 		uiModel.addAttribute("empleado", empleado);
+		uiModel.addAttribute("empresasList", empresaService.buscarEmpresas());
+		
 		return "empleados/create";
 	}
 
@@ -146,8 +154,11 @@ public class EmpleadoController {
 		
 		if (nombre == null || nombre.equals("undefined") || nombre.equals("") ) {
 			empleados = empleadoService.findAll(pageRequest);
+			logger.info("Buscar por nombre: " + nombre);
+			
 		} else {
 			empleados = empleadoService.findByNombre(nombre, pageRequest);
+			logger.info("Buscar por todos: " + nombre);
 		}
 		empleadoGrid.setCurrentPage(empleados.getNumber() + 1);
 		empleadoGrid.setTotalPages(empleados.getTotalPages());
