@@ -52,28 +52,24 @@ public class EmpleadoTest {
     }
 
 	@Test
-	//@Transactional
+	@Transactional
 	public void testinsertarEmpleado() {
 		logger.info("- Insertar Empleado");
 		
-		Empresa empresa = empresaService.buscarPorNif("2");
+		Empresa empresa = empresaService.buscarPorNif("1");
 		
-		if (empresa != null)
+		empleado = empleadoService.buscarPorDni("1");
+		if (empleado == null)
 		{
-			empleado = empleadoService.buscarPorDni("1");
-			if (empleado == null)
-			{
-				byte[] imagen = null;
-				empleado = new Empleado("4", empresa, "Empleado 4","direccion 4", "tipo Empleado4", "empleado col4",70.55, 43.44, 48.75,imagen);			
-			}
-			else
-			{
-				//empleado.setNombre("nombreModificado");
-				empleado.setEmpresa(empresa);
-			}
+			byte[] imagen = null;
+			empleado = new Empleado("1", empresa, "Empleado 1","direccion 1", "tipo Empleado1", "empleado col1",70.55, 43.44, 48.75,imagen);			
+		}
+		else
+		{
+			empleado.setEmpresa(empresa);
 		}
 		empleadoService.guardar(empleado);
-		empleado = empleadoService.buscarPorDni("3");
+		empleado = empleadoService.buscarPorDni("1");
 		
 		if(empleado==null)
 		{
@@ -95,12 +91,12 @@ public class EmpleadoTest {
 		}
 		else
 		{
-			empleado.setNombre("nombreModificado");
+			empleado.setNombre("empleado1 modificado");
 			empleadoService.guardar(empleado);
 		}
 		
 		empleado = empleadoService.buscarPorDni("1");
-		assertTrue(empleado.getNombre().equals("nombreModificado"));
+		assertTrue(empleado.getNombre().equals("empleado1 modificado"));
 	}
 	
 	@Test

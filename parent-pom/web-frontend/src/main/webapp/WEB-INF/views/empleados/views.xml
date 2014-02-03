@@ -16,5 +16,9 @@
     <definition extends="default" name="empleados/create">
         <put-attribute name="body"
             value="/WEB-INF/views/empleados/edit.jspx" />
-    </definition>                                  
+    </definition>
+    <definition extends="default" name="empleados/delete">
+        <put-attribute name="body"
+            value="/WEB-INF/views/empleados/delete.jspx" />
+    </definition>                        
 </tiles-definitions>

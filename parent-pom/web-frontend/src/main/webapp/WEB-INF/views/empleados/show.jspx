@@ -66,13 +66,10 @@
                 <td>${labelempleadohoras}</td>
                 <td>${empleado.cantidadHoras}</td>
             </tr>
-             <tr>
-                <td>${labelempleadoversion}</td>
-                <td >${empleado.version}</td>
-            </tr>
+            
             <tr>
                 <td>${labelempleadoempresa}</td>
-                <td>${empleado.empresa.nombre}</td>
+                <td>${empleado.empresa.nif}</td>
             </tr>
             
         </table>         

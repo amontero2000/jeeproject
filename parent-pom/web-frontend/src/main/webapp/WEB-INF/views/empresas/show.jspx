@@ -44,10 +44,6 @@
                 <td>${labelEmpresaFecha}</td>
                 <td>${empresa.fechaInicioActividades}</td>
             </tr>   
-             <tr>
-                <td>${labelEmpresaVersion}</td>
-                <td>${empresa.version}</td>
-            </tr>
         </table>         
        
         <a href="${editEmpresaUrl}/${empresa.nif}?form">${labelEmpresaUpdate}</a>     

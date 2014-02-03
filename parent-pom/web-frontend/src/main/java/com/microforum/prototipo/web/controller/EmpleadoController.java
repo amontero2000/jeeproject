@@ -28,6 +28,7 @@ import com.microforum.prototipo.web.form.Message;
 import com.microforum.prototipo.web.util.UrlUtil;
 
 import es.microforum.model.Empleado;
+import es.microforum.model.Empresa;
 import es.microforum.serviceapi.EmpleadoService;
 import es.microforum.serviceapi.EmpresaService;
 
@@ -80,6 +81,7 @@ public class EmpleadoController {
 		redirectAttributes.addFlashAttribute("message",
 				new Message("success", messageSource.getMessage("empleado_save_success", new Object[] {}, locale)));
 
+				empleado.setEmpresa(empresaService.buscarPorNif(empleado.getEmpresa().getNif()));
 		empleadoService.guardar(empleado);
 		return "redirect:/empleados/"
 				+ UrlUtil.encodeUrlPathSegment(empleado.getDni().toString(),
@@ -88,14 +90,17 @@ public class EmpleadoController {
 
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
 	public String updateForm(@PathVariable("id") String id, Model uiModel) {
-		uiModel.addAttribute("empleado", empleadoService.buscarPorDni(id));
+		uiModel.addAttribute("empleado", empleadoService.buscarPorDniEmpresa(id));
+		uiModel.addAttribute("empresasList", empresaService.buscarEmpresas());
 		return "empleados/update";
 	}
 	
 	@RequestMapping(value = "/{id}", params = "formdelete", method = RequestMethod.GET)
-	public String deleteForm(@PathVariable("id") String id, Model uiModel) {
+	public String deleteForm(@PathVariable("id") String id, Model uiModel, RedirectAttributes redirectAttributes, Locale locale) {
 		empleadoService.eliminar(empleadoService.buscarPorDni(id));
-		return "empleados/list";
+		uiModel.asMap().clear();
+		redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("empleado_delete_success", new Object[] {}, locale)));
+		return "empleados/delete";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -124,7 +129,12 @@ public class EmpleadoController {
 	public String createForm(Model uiModel) {
 		Empleado empleado = new Empleado();
 		uiModel.addAttribute("empleado", empleado);
-		uiModel.addAttribute("empresasList", empresaService.buscarEmpresas());
+		List<Empresa> empresas = empresaService.buscarEmpresas();
+		for (Empresa empresa: empresas)
+		{
+			empresa.setEmpleados(null);
+		}
+		uiModel.addAttribute("empresasList", empresas);
 		
 		return "empleados/create";
 	}

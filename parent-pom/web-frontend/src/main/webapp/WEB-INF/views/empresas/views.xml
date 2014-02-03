@@ -16,5 +16,9 @@
     <definition extends="default" name="empresas/create">
         <put-attribute name="body"
             value="/WEB-INF/views/empresas/edit.jspx" />
-    </definition>                                  
+    </definition>
+        <definition extends="default" name="empresas/delete">
+        <put-attribute name="body"
+            value="/WEB-INF/views/empresas/delete.jspx" />
+    </definition>                        
 </tiles-definitions>

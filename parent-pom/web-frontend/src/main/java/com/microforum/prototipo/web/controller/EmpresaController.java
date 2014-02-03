@@ -90,9 +90,11 @@ public class EmpresaController {
 	}
 	
 	@RequestMapping(value = "/{id}", params = "formdelete", method = RequestMethod.GET)
-	public String deleteForm(@PathVariable("id") String id, Model uiModel) {
+	public String deleteForm(@PathVariable("id") String id, Model uiModel, RedirectAttributes redirectAttributes, Locale locale) {
 		empresaService.eliminar(empresaService.buscarPorNif(id));
-		return "empresas/list";
+		uiModel.asMap().clear();
+		redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("empresa_delete_success", new Object[] {}, locale)));
+		return "empresas/delete";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

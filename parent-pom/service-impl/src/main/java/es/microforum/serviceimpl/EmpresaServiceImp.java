@@ -43,16 +43,19 @@ public class EmpresaServiceImp implements EmpresaService{
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public Empresa buscarPorNif(String id) {
 		return empresaRepository.findOne(id);
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public List<Empresa> buscarEmpresas() {
 		return Lists.newArrayList(empresaRepository.findAll());
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
 	public Page<Empresa> findByNombre(String name, Pageable pageable)
 	{
 		return empresaRepository.findByNombre(name, pageable);
