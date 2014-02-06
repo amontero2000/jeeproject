@@ -4,7 +4,7 @@
 	<parent>
 	   <groupId>es.microforum</groupId>
 		<artifactId>parent-pom</artifactId>
-		<version>0.0.2</version>
+		<version>0.0.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>web-frontend</artifactId>
 	<packaging>war</packaging>
@@ -205,19 +205,19 @@
 		<dependency>
 			<groupId>es.microforum</groupId>
 			<artifactId>model</artifactId>
-			<version>0.0.2</version>
+			<version>0.0.3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>es.microforum</groupId>
 			<artifactId>service-api</artifactId>
-			<version>0.0.2</version>
+			<version>0.0.3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>es.microforum</groupId>
 			<artifactId>service-impl</artifactId>
-			<version>0.0.2</version>
+			<version>0.0.3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
