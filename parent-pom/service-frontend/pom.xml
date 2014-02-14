@@ -18,7 +18,6 @@
 		<mysqlconnector.version>5.1.6</mysqlconnector.version>
 	</properties>
 
-
 	<dependencies>
 		<!-- Dependencias del proyecto -->
 		<dependency>

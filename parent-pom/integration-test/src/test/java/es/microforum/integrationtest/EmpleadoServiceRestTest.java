@@ -151,7 +151,6 @@ public class EmpleadoServiceRestTest {
 			e.printStackTrace();
 			fail();
 		}
-		
 	}
 	
 	private Resource<Empleado> getEmpleado(URI uri) {

@@ -7,7 +7,6 @@
 		<version>0.0.3</version>
 	</parent>
 	<artifactId>service-impl</artifactId>
-
 	<dependencies>
 		<dependency>
 			<groupId>es.microforum</groupId>

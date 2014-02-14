@@ -6,6 +6,7 @@
     	<version>0.0.3</version>
   	</parent>
   	<artifactId>model</artifactId>
+  	
   	<dependencies>
   		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
