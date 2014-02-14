@@ -30,4 +30,6 @@ public interface EmpleadoService {
 		public Page<Empleado> findByNombre(String name, Pageable pageable);
 		
 		Page<Empleado> findAll(Pageable pageable);
+		
+		public void modificarSalario(int cambio);
 }

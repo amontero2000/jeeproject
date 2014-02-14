@@ -90,4 +90,13 @@ public class EmpleadoServiceImp implements EmpleadoService {
 		return empleadoRepository.findAll(pageable);
 	}
 	
+	@Override
+	public void modificarSalario(int cambio) {
+		List<Empleado> empleados = Lists.newArrayList(empleadoRepository.findAll());
+		for (Empleado emp : empleados) {
+			emp.setSalarioAnual(emp.getSalarioAnual() * cambio/100);
+			empleadoRepository.save(emp);
+		}
+	}
+	
 }
