@@ -4,23 +4,16 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -29,25 +22,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import es.microforum.model.Empresa;
-import es.microforum.serviceapi.EmpleadoService;
-import es.microforum.model.Empresa;
-import es.microforum.serviceapi.EmpleadoService;
 import es.microforum.serviceapi.EmpresaService;
 
 
 public class EmpresaServiceRestTest {
 	
-	// Contexto de Spring
+	    //Contexto de Spring
 		private ClassPathXmlApplicationContext ctxSpring;
 		// Data Source
 		DataSource dataSource;
@@ -59,7 +42,6 @@ public class EmpresaServiceRestTest {
 		EmpresaService empresaService;
 		// restTemplate
 		RestTemplate restTemplate = new RestTemplate();
-		// Formateo de fechas
 		SimpleDateFormat sdf;
 		// URI base:
 		String uriBase;
@@ -76,10 +58,10 @@ public class EmpresaServiceRestTest {
 			// SimpleDateFormat
 			sdf = new SimpleDateFormat("dd/MM/yyyy");
 			// Empresa
-			empresa = new Empresa("nifRestApi", "empresaRestApi", "Calle rest 8, 3B", sdf.parse("01/01/2014"), null );
+			empresa = new Empresa("nif1", "empresa1RestApi", "Calle rest 8, 3B", sdf.parse("01/01/2014"), null );
 			// Empresa service
 			empresaService = ctxSpring.getBean("springJpaEmpresaService", EmpresaService.class);
-			// Defino la URI de base para llegar a todas las empresas
+			// Definir URI de base para llegar a todas las empresas
 			uriBase = "http://localhost:8081/service-frontend/empresa/";
 		}
 
@@ -103,12 +85,14 @@ public class EmpresaServiceRestTest {
 		@Test
 		public void deleteEmpresaTest() {
 			try {
-				// Inserto una empresa para su posterior borrado
-				jdbcTemplate.execute("INSERT INTO `JEE`.`empresa` (`nif`, `nombre`, `direccionFiscal`, `fechaInicioActividades`, `version`) VALUES ('nifRestApi', 'Empresa 3', 'Calle 3, 3A', '2014-01-01 00:00:00', '0');");
-				assertTrue(empresaService.buscarPorNif("nifRestApi") != null);
-				// Elimino la empresa mediante rest api
-				restTemplate.delete(uriBase + "nifRestApi");
-				assertTrue(empresaService.buscarPorNif("nifRestApi") == null);
+				// Insertar empresa sino existe
+				//if(empresaService.buscarPorNif("nif1") == null)
+				//{
+					jdbcTemplate.execute("INSERT INTO `JEE`.`empresa` (`nif`, `nombre`, `direccionFiscal`, `fechaInicioActividades`, `version`) VALUES ('nif1', 'Empresa 1', 'Calle empresa1', '2014-01-01 00:00:00', '0');");
+				//}
+				// Eliminar empresa llamando al servicio de res api
+				restTemplate.delete(uriBase + "nif1");
+				assertTrue(empresaService.buscarPorNif("nif1") == null);
 			} catch (Exception e) {
 				e.printStackTrace();
 				fail();
@@ -127,18 +111,18 @@ public class EmpresaServiceRestTest {
 			    requestHeaders.setAccept(mediaTypes); 
 			    requestHeaders.setContentType(MediaType.valueOf(acceptHeaderValue)); 
 			    HttpMethod post = HttpMethod.POST;
-			    // En el body pasamos el JSON para la creación de una empresa
-			    String body = "{\"nif\":\"nifRestApi\",\"nombre\":\"Empresa Rest Api\",\"direccionFiscal\":\"Calle Rest, Api 45\",\"fechaInicioActividades\":\"2011-11-17\"}}"; 
+			    // En el body pasamos el JSON para crear empresa
+			    String body = "{\"nif\":\"nif1\",\"nombre\":\"Empresa 1\",\"direccionFiscal\":\"Calle emp1, Api 45\",\"fechaInicioActividades\":\"2011-11-17\"}}"; 
 		        HttpEntity<String> entity = new HttpEntity<String>(body, requestHeaders);
 		        ResponseEntity<String> response = restTemplate.exchange(uriBase, post, entity, String.class); 
-		        // Compruebo que el estado de la petición sea correcto
+		        // Comprobar si el estado de la peticion es correcto
 		        assertTrue(response.getStatusCode().equals(HttpStatus.CREATED));
-		        // Compruebo que el registro se haya insertado en BBDD
-		        assertTrue(empresaService.buscarPorNif("nifRestApi") != null);
-		        // Elimino la empresa creada
-		        restTemplate.delete(uriBase + "nifRestApi");
-		        // Compruebo que no queden registros en la BBDD
-		        assertTrue(empresaService.buscarPorNif("nifRestApi") == null);
+		        // comprobar si se ha insertado en bbdd
+		        assertTrue(empresaService.buscarPorNif("nif1") != null);
+		        // eliminar empresa
+		        restTemplate.delete(uriBase + "nif1");
+		        // Comprobamos si se ha eliminado de bbdd
+		        assertTrue(empresaService.buscarPorNif("nif1") == null);
 			} catch (Exception e) {
 				e.printStackTrace();
 				fail();
@@ -149,10 +133,9 @@ public class EmpresaServiceRestTest {
 		@Test
 		public void putEmpresaTest() {
 			try {
-				// Inserto una empresa para su posterior modificación
-				jdbcTemplate.execute("INSERT INTO `JEE`.`empresa` (`nif`, `nombre`, `direccionFiscal`, `fechaInicioActividades`, `version`) VALUES ('nifRestApi', 'Empresa 3', 'Calle 3, 3A', '2014-01-01 00:00:00', '0');");
+				jdbcTemplate.execute("INSERT INTO `JEE`.`empresa` (`nif`, `nombre`, `direccionFiscal`, `fechaInicioActividades`, `version`) VALUES ('nif1', 'Empresa 3', 'Calle 3, 3A', '2014-01-01 00:00:00', '0');");
 				// URL del objeto creado
-				String url = uriBase + "/nifRestApi";
+				String url = uriBase + "/nif1";
 				// Parámetros de la petición 
 				String acceptHeaderValue = "application/json"; 
 				HttpHeaders requestHeaders = new HttpHeaders(); 
@@ -165,14 +148,14 @@ public class EmpresaServiceRestTest {
 			    String body = "{\"nombre\":\"Empresa MODIFICADA Rest Api\"}}"; 
 		        HttpEntity<String> entity = new HttpEntity<String>(body, requestHeaders);
 		        ResponseEntity<String> response = restTemplate.exchange(url, put, entity, String.class); 
-		        // Compruebo que el estado de la petición sea correcto
+		        // Comprobamos si el estado de la peticion es correcto
 		        assertTrue(response.getStatusCode().equals(HttpStatus.NO_CONTENT));
-		        // Compruebo que el registro se haya modificado en BBDD
-		        assertTrue(empresaService.buscarPorNif("nifRestApi").getNombre().equals("Empresa MODIFICADA Rest Api"));
-		        // Elimino la empresa creada
-		        restTemplate.delete(uriBase + "nifRestApi");
-		        // Compruebo que no queden registros en la BBDD
-		        assertTrue(empresaService.buscarPorNif("nifRestApi") == null);
+		        // Comompobamos si se ha modificado en bbdd
+		        assertTrue(empresaService.buscarPorNif("nif1").getNombre().equals("Empresa MODIFICADA Rest Api"));
+		        // Eliminar empresa
+		        restTemplate.delete(uriBase + "nif1");
+		        // Comprobar si se ha eliminado
+		        assertTrue(empresaService.buscarPorNif("nif1") == null);
 			} catch (Exception e) {
 				e.printStackTrace();
 				fail();
